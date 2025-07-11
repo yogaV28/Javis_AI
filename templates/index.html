@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JARVIS - AI Assistant</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="{{ url_for('static', filename='logo.jpg') }}" class="logo" />
+      <h1 class="title">🤖 JARVIS - AI Voice Assistant of CyberBots</h1>
+    </div>
+
+    <div class="center-content">
+      <img src="{{ url_for('static', filename='jarvis.gif') }}" class="jarvis-gif" />
+      <textarea id="prompt" placeholder="Type or speak your question..."></textarea>
+
+      <div class="button-group">
+        <button onclick="askGPT()">💬 Ask</button>
+        <button onclick="startListening()">🎙️ Speak</button>
+        <button onclick="stopSpeaking()">⏹️ Stop</button>
+      </div>
+      <div id="response" class="response-box">Initializing JARVIS...</div>
+      <div class="loading-spinner" id="loadingSpinner" style="display: none;"></div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
