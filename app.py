@@ -15,7 +15,7 @@ if not api_key:
 genai.configure(api_key=api_key)
 
 # Initialize Gemini model
-model = genai.GenerativeModel(model_name="models/Gemini 2.5 Pro")  # ✅ Use supported model
+model = genai.GenerativeModel(model_name="models/gemini-2.5-flash")  # ✅ Use supported model
 
 # Flask app setup
 app = Flask(__name__)
