@@ -3,12 +3,21 @@ from dotenv import load_dotenv
 import google.generativeai as genai
 import os
 
+# Load environment variables
 load_dotenv()
 api_key = os.getenv("GOOGLE_API_KEY")
+
+# Ensure API key is loaded
+if not api_key:
+    raise ValueError("GOOGLE_API_KEY not found in .env or environment variables.")
+
+# Configure Gemini API
 genai.configure(api_key=api_key)
 
-model = genai.GenerativeModel("gemini-pro")
+# Initialize Gemini model
+model = genai.GenerativeModel(model_name="models/gemini-1.5-pro")  # ✅ Use supported model
 
+# Flask app setup
 app = Flask(__name__)
 
 @app.route("/")
@@ -19,7 +28,10 @@ def index():
 def ask():
     prompt = request.json.get("prompt", "")
     try:
-        response = model.generate_content(prompt)
+        # Gemini expects "parts" under "contents"
+        response = model.generate_content(
+            contents=[{"parts": [{"text": prompt}]}]
+        )
         return jsonify({"response": response.text})
     except Exception as e:
         print("Gemini error:", e)
