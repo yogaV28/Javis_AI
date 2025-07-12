@@ -3,13 +3,10 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import os
 
-# Load .env for local dev
 load_dotenv()
 
-# Setup OpenAI client
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# Flask app
 app = Flask(__name__)
 
 @app.route("/")
