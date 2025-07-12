@@ -1,11 +1,10 @@
+import openai
 from flask import Flask, request, jsonify, render_template
-from openai import OpenAI
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
 
 load_dotenv()
-
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 app = Flask(__name__)
 
@@ -17,11 +16,11 @@ def index():
 def ask():
     prompt = request.json.get("prompt", "")
     try:
-        response = client.chat.completions.create(
-            model="gpt-4o",
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",  # GPT-4 not supported in v0.28
             messages=[{"role": "user", "content": prompt}]
         )
-        reply = response.choices[0].message.content
+        reply = response.choices[0].message["content"]
         return jsonify({"response": reply})
     except Exception as e:
         return jsonify({"response": f"⚠️ Error: {str(e)}"}), 500
